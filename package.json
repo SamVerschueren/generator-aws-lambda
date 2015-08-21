@@ -1,0 +1,19 @@
+{
+  "name": "generator-aws-lambda",
+  "version": "0.0.1",
+  "description": "Scaffold out an AWS Lambda module.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SamVerschueren/generator-aws-lambda"
+  },
+  "keywords": [
+    "yeoman-generator",
+    "template",
+    "scaffold",
+    "aws",
+    "lambda",
+    "node"
+  ],
+  "author": "Sam Verschueren",
+  "license": "MIT"
+}
