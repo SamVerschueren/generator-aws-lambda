@@ -8,21 +8,28 @@
  */
 
 // module dependencies
-var yeoman = require('yeoman-generator'),
-    moment = require('moment');
+var path = require('path'),
+    yeoman = require('yeoman-generator'),
+    moment = require('moment'),
+    uppercamelcase = require('uppercamelcase');
 
 module.exports = yeoman.generators.Base.extend({
     init: function() {
         var done = this.async();
         
+        // Ask the questions
         this.prompt([
             {
                 name: 'functionName',
-                message: 'What do you want to name your lambda function?'
+                message: 'What do you want to name your lambda function?',
+                default: uppercamelcase(process.cwd().split(path.sep).pop())
             },
             {
                 name: 'functionDescription',
-                message: 'What\'s the purpose of the function?'
+                message: 'What\'s the description of the lambda function?',
+                validate: function (val) {
+                    return val.length > 0 ? true : 'You have to provide a description';
+                }
             },
             {
                 name: 'githubUsername',
@@ -33,6 +40,7 @@ module.exports = yeoman.generators.Base.extend({
                 }
             }
         ], function(props) {
+            // Build up the template
             var tpl = {
                 functionName: props.functionName,
                 functionDescription: props.functionDescription,
@@ -41,8 +49,18 @@ module.exports = yeoman.generators.Base.extend({
                 date: moment().format('DD MMM. YYYY')
             };
             
-            this.fs.copyTpl([this.templatePath() + '/**'], this.destinationPath(), tpl);
+            var mv = function (from, to) {
+				this.fs.move(this.destinationPath(from), this.destinationPath(to));
+			}.bind(this);
             
+            // Copy the template files
+            this.fs.copyTpl(this.templatePath() + '/**', this.destinationPath(), tpl);
+            
+            // Rename the files
+            mv('_package.json', 'package.json');
+            mv('gitignore', '.gitignore');
+            
+            // We are done!
             done();
         }.bind(this));
     }
