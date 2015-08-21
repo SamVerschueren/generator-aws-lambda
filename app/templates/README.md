@@ -14,4 +14,4 @@ Deploy the zip file generated in the `dist` directory.
 
 ## Author
 
-- <%= name %> <<%= email %>>
+- <%= name %> [<<%= email %>>]
