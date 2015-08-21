@@ -1,6 +1,6 @@
 {
   "name": "generator-aws-lambda",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Scaffold out an AWS Lambda module.",
   "repository": {
     "type": "git",
