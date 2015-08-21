@@ -15,5 +15,12 @@
     "node"
   ],
   "author": "Sam Verschueren",
-  "license": "MIT"
+  "license": "MIT",
+  "files": [
+    "app"
+  ],
+  "dependencies": {
+    "moment": "^2.10.6",
+    "yeoman-generator": "^0.20.3"
+  }
 }
