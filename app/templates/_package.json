@@ -12,7 +12,9 @@
     "zip": "./node_modules/.bin/gulp zip"
   },
   "keywords": [
-    ""
+<% keywords.forEach(function(keyword, i) { -%>
+    "<%= keyword %>"<%= i < keywords.length-1 ? ',' : '' %>
+<% }); -%>
   ],
   "dependencies": {<% if (invoke) { %>
     "aws-lambda-invoke": "^1.0.1"<% } %>

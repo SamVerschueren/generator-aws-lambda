@@ -32,6 +32,13 @@ module.exports = yeoman.generators.Base.extend({
                 }
             },
             {
+                name: 'keywords',
+                message: 'Provide a list of keywords?',
+                filter: function(keywords) {
+                    return keywords.replace(/,? /g, ',').split(',');
+                }
+            },
+            {
                 name: 'githubUsername',
                 message: 'What is your GitHub username?',
                 store: true,
@@ -50,6 +57,7 @@ module.exports = yeoman.generators.Base.extend({
             var tpl = {
                 functionName: props.functionName,
                 functionDescription: props.functionDescription,
+                keywords: props.keywords,
                 name: this.user.git.name(),
                 email: this.user.git.email(),
                 invoke: props.invoke,
