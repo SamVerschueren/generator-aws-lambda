@@ -8,18 +8,23 @@
     "email": "<%= email %>"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "./node_modules/.bin/mocha test",
     "zip": "./node_modules/.bin/gulp zip"
   },
   "keywords": [
     ""
   ],
+  "dependencies": {
+  },
   "devDependencies": {
+    "aws-lambda-mock-context": "^0.2.0",
     "aws-sdk": "^2.1.46",
+    "chai": "^3.2.0",
     "decamelize": "^1.0.0",
     "gulp": "^3.9.0",
-    "gulp-zip": "^3.0.2"
-  },
-  "dependencies": {
+    "gulp-zip": "^3.0.2",
+    "mocha": "^2.2.5",
+    "sinon": "^1.15.4",
+    "sinon-chai": "^2.8.0"
   }
 }

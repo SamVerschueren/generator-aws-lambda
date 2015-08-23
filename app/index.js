@@ -34,7 +34,7 @@ module.exports = yeoman.generators.Base.extend({
             {
                 name: 'githubUsername',
                 message: 'What is your GitHub username?',
-			    store: true,
+                store: true,
                 validate: function (val) {
                     return val.length > 0 ? true : 'You have to provide a username';
                 }
@@ -50,8 +50,8 @@ module.exports = yeoman.generators.Base.extend({
             };
             
             var mv = function (from, to) {
-				this.fs.move(this.destinationPath(from), this.destinationPath(to));
-			}.bind(this);
+                this.fs.move(this.destinationPath(from), this.destinationPath(to));
+            }.bind(this);
             
             // Copy the template files
             this.fs.copyTpl(this.templatePath() + '/**', this.destinationPath(), tpl);
@@ -63,5 +63,9 @@ module.exports = yeoman.generators.Base.extend({
             // We are done!
             done();
         }.bind(this));
+    },
+    install: function () {
+        // Install node dependencies
+        this.installDependencies({bower: false});
     }
 });
