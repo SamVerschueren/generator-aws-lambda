@@ -14,7 +14,8 @@
   "keywords": [
     ""
   ],
-  "dependencies": {
+  "dependencies": {<% if (invoke) { %>
+    "aws-lambda-invoke": "^1.0.1"<% } %>
   },
   "devDependencies": {
     "aws-lambda-mock-context": "^0.2.0",

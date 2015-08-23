@@ -38,6 +38,12 @@ module.exports = yeoman.generators.Base.extend({
                 validate: function (val) {
                     return val.length > 0 ? true : 'You have to provide a username';
                 }
+            },
+            {
+                name: 'invoke',
+                message: 'Do you need want to invoke other lambda functions?',
+                type: 'confirm',
+                default: true
             }
         ], function(props) {
             // Build up the template
@@ -46,6 +52,7 @@ module.exports = yeoman.generators.Base.extend({
                 functionDescription: props.functionDescription,
                 name: this.user.git.name(),
                 email: this.user.git.email(),
+                invoke: props.invoke,
                 date: moment().format('DD MMM. YYYY')
             };
             

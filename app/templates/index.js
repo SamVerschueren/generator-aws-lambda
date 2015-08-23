@@ -8,7 +8,8 @@
  */
 
 // module dependencies
-var AWS = require('aws-sdk');
+var AWS = require('aws-sdk')<% if (invoke) { %>,
+    lambda = require('aws-lambda-invoke')(AWS)<% } %>;
 
 /**
  * The handler function.
