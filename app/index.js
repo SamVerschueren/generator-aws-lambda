@@ -61,7 +61,7 @@ module.exports = yeoman.generators.Base.extend({
         ], function(props) {
             // Build the list of dependencies
             var dependencies = {};
-            if(props.invoke)    dependencies['aws-lambda-invoke'] = '^1.0.4';
+            if(props.invoke)    dependencies['aws-lambda-invoke'] = '^1.0.5';
             if(props.env)       dependencies['aws-lambda-env'] = '^1.0.2';
 
             // Build up the template
