@@ -48,13 +48,13 @@ module.exports = yeoman.generators.Base.extend({
             },
             {
                 name: 'invoke',
-                message: 'Do you need want to invoke other lambda functions?',
+                message: 'Do you want to invoke other lambda functions?',
                 type: 'confirm',
                 default: true
             },
             {
                 name: 'env',
-                message: 'Do you need want to extract the environment from the function name?',
+                message: 'Do you want to extract the environment from the function name?',
                 type: 'confirm',
                 default: true
             }
