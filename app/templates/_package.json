@@ -16,8 +16,10 @@
     "<%= keyword %>"<%= i < keywords.length-1 ? ',' : '' %>
 <% }); -%>
   ],
-  "dependencies": {<% if (invoke) { %>
-    "aws-lambda-invoke": "^1.0.4"<% } %>
+  "dependencies": {
+<% Object.keys(dependencies).forEach(function(dep, i) { -%>
+    "<%= dep %>": "<%= dependencies[dep] %>"<%= i < Object.keys(dependencies).length-1 ? ',' : '' %>
+<% }); -%>
   },
   "devDependencies": {
     "aws-lambda-mock-context": "^0.2.0",
