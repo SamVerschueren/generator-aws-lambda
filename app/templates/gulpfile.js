@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * Tasks that will zip all the files so that the zip file can be deployed to 
+ * Tasks that will zip all the files so that the zip file can be deployed to
  * AWS Lambda.
- * 
+ *
  * @author <%= name %>      <<%= email %>>
  * @since  <%= date %>
  */
@@ -20,18 +20,18 @@ var pkg = require('./package.json');
  */
 gulp.task('zip', function() {
     var name = decamelize(pkg.name);
-    
+
     // Ignore all the dev dependencies and the bin folder
     var ignoreModules = Object.keys(pkg.devDependencies);
     ignoreModules.push('.bin');
-    
+
     // Map the array to a list of globbing patterns
     var ignore = ignoreModules.map(function(dep) {
         return '!node_modules/{' + dep + ',' + dep + '/**}';
     });
-    
+
     // Zip the code
-    return gulp.src(['./**', '!README.md', '!.gitignore', '!gulpfile.js', '!./{dist,dist/**}', '!./{test,test/**}'].concat(ignore), {base: '.'})
+    return gulp.src(['./**', '!./**/*.md', '!./**/LICENSE', '!.gitignore', '!gulpfile.js', '!./{dist,dist/**}', '!./{test,test/**}'].concat(ignore), {base: '.'})
         .pipe(zip(name + '.zip'))
         .pipe(gulp.dest('dist'));
 });
