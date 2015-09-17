@@ -31,7 +31,7 @@ gulp.task('zip', function() {
     });
 
     // Zip the code
-    return gulp.src(['./**', '!./**/*.md', '!./**/LICENSE', '!.gitignore', '!gulpfile.js', '!./{dist,dist/**}', '!./{test,test/**}'].concat(ignore), {base: '.'})
+    return gulp.src(['./**', '!./**/*.md', '!.gitignore', '!gulpfile.js', '!./{dist,dist/**}', '!./{test,test/**}', '!./**/{aws-sdk,aws-sdk/**}'].concat(ignore), {base: '.'})
         .pipe(zip(name + '.zip'))
         .pipe(gulp.dest('dist'));
 });
