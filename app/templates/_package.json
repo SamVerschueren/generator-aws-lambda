@@ -8,8 +8,8 @@
     "email": "<%= email %>"
   },
   "scripts": {
-    "test": "./node_modules/.bin/mocha test",
-    "zip": "./node_modules/.bin/gulp zip"
+    "test": "mocha test",
+    "zip": "gulp zip"
   },
   "keywords": [
 <% keywords.forEach(function(keyword, i) { -%>
