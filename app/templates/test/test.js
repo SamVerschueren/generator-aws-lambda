@@ -1,37 +1,11 @@
-'use strict';
+import test from 'ava';
+import pify from 'aws-lambda-pify';
+import index from '../';
 
-/**
- * Test suite for <%= functionDescription %>
- * 
- * @author <%= name %>      <<%= email %>>
- * @since  <%= date %>
- */
+const fn = pify(index.handler);
 
-// module dependencies
-var chai = require('chai'),
-    sinon = require('sinon'),
-    sinonChai = require('sinon-chai'),
-    context = require('aws-lambda-mock-context');
+test('result', async t => {
+	const result = await fn({hello: 'world'});
 
-// Use should flavour for Mocha
-chai.should();
-chai.use(sinonChai);
-
-var index = require('../');
-
-describe('<%= functionName %>', function() {
-    
-    it('Should call the succeed method', function(done) {
-        index.handler({hello: 'world'}, context());
-
-        context.Promise
-            .then(function() {
-                // succeed() called
-                done();
-            })
-            .catch(function(err) {
-                // fail() called
-                done(err);
-            });
-    });
+    t.same(result, {hello: 'world'});
 });
