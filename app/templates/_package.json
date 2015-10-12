@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "xo && ava",
-    "zip": "gulp zip"
+    "zip": "gulp build"
   },
   "keywords": [
 <% keywords.forEach(function(keyword, i) { -%>
@@ -25,7 +25,9 @@
     "aws-lambda-pify": "^0.1.0",
     "aws-sdk": "^2.2.8",
     "gulp": "^3.9.0",
+    "gulp-install": "^0.6.0",
     "gulp-zip": "^3.0.2",
+    "del": "^2.0.2",
     "ava": "*",
     "xo": "*"
   },

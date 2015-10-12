@@ -10,24 +10,25 @@
 
 // module dependencies
 var gulp = require('gulp');
+var install = require('gulp-install');
 var zip = require('gulp-zip');
-var pkg = require('./package.json');
+var del = require('del');
 
-/**
- * Creates a zip file
- */
-gulp.task('zip', function () {
-	// Ignore all the dev dependencies and the bin folder
-	var ignoreModules = Object.keys(pkg.devDependencies);
-	ignoreModules.push('.bin');
-
-	// Map the array to a list of globbing patterns
-	var ignore = ignoreModules.map(function (dep) {
-		return '!node_modules/{' + dep + ',' + dep + '/**}';
-	});
-
-	// Zip the code
-	return gulp.src(['./**', '!./**/*.md', '!.gitignore', '!gulpfile.js', '!./{dist,dist/**}', '!./{test,test/**}', '!./**/{aws-sdk,aws-sdk/**}'].concat(ignore), {base: '.'})
-		.pipe(zip('build.zip'))
-		.pipe(gulp.dest('dist'));
+gulp.task('clean', ['zip'], function () {
+	return del('.temp');
 });
+
+gulp.task('copyAndInstall', function () {
+	return gulp.src(['./**', '!./**/*.md', '!.gitignore', '!gulpfile.js', '!travis.yml', '!./{dist,dist/**}', '!./{test,test/**}', '!./{node_modules,node_modules/**}'])
+		.pipe(gulp.dest('.temp'))
+		.pipe(install({production: true}));
+});
+
+gulp.task('zip', ['copyAndInstall'], function () {
+	return gulp.src('.temp/**')
+		.pipe(zip('build.zip'))
+		.pipe(gulp.dest('.'));
+});
+
+gulp.task('build', ['zip', 'clean']);
+gulp.task('default', ['build']);
