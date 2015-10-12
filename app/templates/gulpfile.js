@@ -27,7 +27,7 @@ gulp.task('copyAndInstall', function () {
 gulp.task('zip', ['copyAndInstall'], function () {
 	return gulp.src('.temp/**')
 		.pipe(zip('build.zip'))
-		.pipe(gulp.dest('.'));
+		.pipe(gulp.dest('dist'));
 });
 
 gulp.task('build', ['zip', 'clean']);
