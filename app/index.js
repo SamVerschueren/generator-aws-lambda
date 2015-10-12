@@ -40,10 +40,32 @@ module.exports = yeoman.generators.Base.extend({
 			},
 			{
 				name: 'githubUsername',
-				message: 'What is your GitHub username?',
+				message: 'Wha\'s your GitHub username?',
 				store: true,
+				filter: function (username) {
+					return username.trim();
+				}
+			},
+			{
+				name: 'name',
+				message: 'What\'s your name?',
+				store: true,
+				when: function (props) {
+					return props.githubUsername.length === 0;
+				},
 				validate: function (val) {
-					return val.length > 0 ? true : 'You have to provide a username';
+					return val.length > 0 ? true : 'You have to provide your name';
+				}
+			},
+			{
+				name: 'email',
+				message: 'What\'s your email address?',
+				store: true,
+				when: function (props) {
+					return props.githubUsername.length === 0;
+				},
+				validate: function (val) {
+					return val.length > 0 ? true : 'You have to provide your email address';
 				}
 			},
 			{
@@ -73,8 +95,8 @@ module.exports = yeoman.generators.Base.extend({
 				functionName: props.functionName,
 				functionDescription: props.functionDescription,
 				keywords: props.keywords,
-				name: this.user.git.name(),
-				email: this.user.git.email(),
+				name: props.name || this.user.git.name(),
+				email: props.email || this.user.git.email(),
 				invoke: props.invoke,
 				env: props.env,
 				dependencies: dependencies,
