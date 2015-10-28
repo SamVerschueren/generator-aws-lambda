@@ -16,7 +16,7 @@ var db = require('dynongo');<% } %><% if (env) { %>
 var environment = require('aws-lambda-env');
 
 var env = environment() || 'production';
-var config = require('./config.json')[env]<% } %>
+var config = require('./config.json')[env];<% } %>
 
 /**
  * The handler function.
