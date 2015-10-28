@@ -40,7 +40,7 @@ module.exports = yeoman.generators.Base.extend({
 			},
 			{
 				name: 'githubUsername',
-				message: 'Wha\'s your GitHub username?',
+				message: 'What\'s your GitHub username?',
 				store: true,
 				filter: function (username) {
 					return username.trim();
