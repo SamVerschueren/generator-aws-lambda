@@ -9,10 +9,14 @@
 
 // module dependencies
 var AWS = require('aws-sdk');<% if (invoke) { %>
-var lambda = require('aws-lambda-invoke')(AWS);<% } %><% if (env) { %>
+var lambda = require('aws-lambda-invoke')(AWS);<% } %><% if (includePinkiePromise) { %>
+var Promise = require('pinkie-promise');<% } %><% if (includePify) { %>
+var pify = require('pify');<% } %><% if (includeDynongo) { %>
+var db = require('dynongo');<% } %><% if (env) { %>
 var environment = require('aws-lambda-env');
 
-var env = environment() || 'production';<% } %>
+var env = environment() || 'production';
+var config = require('./config.json')[env]<% } %>
 
 /**
  * The handler function.

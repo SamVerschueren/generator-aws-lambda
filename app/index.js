@@ -13,9 +13,26 @@ var yeoman = require('yeoman-generator');
 var moment = require('moment');
 var uppercamelcase = require('uppercamelcase');
 
+var features = {
+	'dynongo': '^0.2.4',
+	'pify': '^2.3.0',
+	'pinkie-promise': '^1.0.0'
+};
+
 module.exports = yeoman.generators.Base.extend({
 	init: function () {
 		var done = this.async();
+
+		var featurePrompt = {
+			name: 'features',
+			message: 'What more would you like?',
+			type: 'checkbox',
+			choices: []
+		};
+
+		Object.keys(features).forEach(function (feature) {
+			featurePrompt.choices.push({name: feature, value: feature});
+		});
 
 		// Ask the questions
 		this.prompt([
@@ -79,7 +96,8 @@ module.exports = yeoman.generators.Base.extend({
 				message: 'Do you want to extract the environment from the function name?',
 				type: 'confirm',
 				default: true
-			}
+			},
+			featurePrompt
 		], function (props) {
 			// Build the list of dependencies
 			var dependencies = {};
@@ -103,8 +121,22 @@ module.exports = yeoman.generators.Base.extend({
 				date: moment().format('DD MMM. YYYY')
 			};
 
+			Object.keys(features).forEach(function (feature) {
+				var hasFeature = props.features.indexOf(feature) !== -1;
+
+				if (hasFeature) {
+					tpl.dependencies[feature] = features[feature];
+				}
+
+				tpl['include' + uppercamelcase(feature)] = hasFeature;
+			});
+
 			var mv = function (from, to) {
 				this.fs.move(this.destinationPath(from), this.destinationPath(to));
+			}.bind(this);
+
+			var del = function (dest) {
+				this.fs.delete(this.destinationPath(dest));
 			}.bind(this);
 
 			// Copy the template files
@@ -114,6 +146,12 @@ module.exports = yeoman.generators.Base.extend({
 			mv('_package.json', 'package.json');
 			mv('travis.yml', '.travis.yml');
 			mv('gitignore', '.gitignore');
+			mv('gitattributes', '.gitattributes');
+			mv('editorconfig', '.editorconfig');
+
+			if (tpl.env !== true) {
+				del('config.json');
+			}
 
 			// We are done!
 			done();
