@@ -13,6 +13,7 @@ var gulp = require('gulp');
 var install = require('gulp-install');
 var zip = require('gulp-zip');
 var del = require('del');
+var pkg = require('./package.json');
 
 gulp.task('clean', ['zip'], function () {
 	return del('.temp');
@@ -23,7 +24,13 @@ gulp.task('rmaws', ['copyAndInstall'], function () {
 });
 
 gulp.task('copyAndInstall', function () {
-	return gulp.src(['./**', '!./**/*.md', '!.gitignore', '!.aws.json', '!gulpfile.js', '!.travis.yml', '!./{dist,dist/**}', '!./{test,test/**}', '!./{node_modules,node_modules/**}'])
+	var files = ['package.json'].concat(pkg.files);
+
+	if (pkg.files === undefined) {
+		files = ['./**', '!./**/*.md', '!gulpfile.js', '!./{dist,dist/**}', '!./{test,test/**}', '!./{node_modules,node_modules/**}'];
+	}
+
+	return gulp.src(files)
 		.pipe(gulp.dest('.temp'))
 		.pipe(install({production: true}));
 });
