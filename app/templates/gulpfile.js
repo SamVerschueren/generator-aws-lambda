@@ -9,6 +9,8 @@
  */
 
 // module dependencies
+var fs = require('fs');
+var path = require('path');
 var gulp = require('gulp');
 var install = require('gulp-install');
 var zip = require('gulp-zip');
@@ -28,9 +30,21 @@ gulp.task('copyAndInstall', function () {
 
 	if (pkg.files === undefined) {
 		files = ['./**', '!./**/*.md', '!gulpfile.js', '!./{dist,dist/**}', '!./{test,test/**}', '!./{node_modules,node_modules/**}'];
+	} else {
+		files = files.map(function (file) {
+			try {
+				if (fs.statSync(path.join(__dirname, file)).isDirectory()) {
+					return path.join(file, '**/*');
+				}
+			} catch (err) {
+				// do nothing
+			}
+
+			return file;
+		});
 	}
 
-	return gulp.src(files)
+	return gulp.src(files, {base: '.'})
 		.pipe(gulp.dest('.temp'))
 		.pipe(install({production: true}));
 });
