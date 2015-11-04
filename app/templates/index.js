@@ -7,9 +7,8 @@
  * @since  <%= date %>
  */
 
-// module dependencies
-var AWS = require('aws-sdk');<% if (invoke) { %>
-var lambda = require('aws-lambda-invoke')(AWS);<% } %><% if (includePinkiePromise) { %>
+// module dependencies<% if (invoke) { %>
+var lambda = require('aws-lambda-invoke');<% } %><% if (includePinkiePromise) { %>
 var Promise = require('pinkie-promise');<% } %><% if (includePify) { %>
 var pify = require('pify');<% } %><% if (includeDynongo) { %>
 var db = require('dynongo');<% } %><% if (env) { %>
