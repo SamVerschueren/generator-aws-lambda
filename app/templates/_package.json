@@ -23,7 +23,7 @@
   },
   "devDependencies": {
     "ava": "*",
-    "aws-lambda-pify": "^0.1.0",
+    "aws-lambda-pify": "^1.0.0",
     "aws-sdk": "^2.2.8",
     "gulp": "^3.9.0",
     "gulp-install": "^0.6.0",
