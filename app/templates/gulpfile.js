@@ -14,6 +14,8 @@ var path = require('path');
 var gulp = require('gulp');
 var install = require('gulp-install');
 var zip = require('gulp-zip');
+var strip = require('gulp-strip-comments');
+var removeEmptyLines = require('gulp-remove-empty-lines');
 var del = require('del');
 var pkg = require('./package.json');
 
@@ -45,6 +47,8 @@ gulp.task('copyAndInstall', function () {
 	}
 
 	return gulp.src(files, {base: '.'})
+		.pipe(strip())
+		.pipe(removeEmptyLines())
 		.pipe(gulp.dest('.temp'))
 		.pipe(install({production: true}));
 });
