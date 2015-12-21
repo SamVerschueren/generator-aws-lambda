@@ -32,10 +32,5 @@
     "gulp-zip": "^3.0.2",
     "del": "^2.0.2",
     "xo": "*"
-  },
-  "xo": {
-    "ignores": [
-      "test/test.js"
-    ]
   }
 }
