@@ -8,14 +8,14 @@ var config = require('./config.json');
 
 // Create all the routes
 function routes() {
-	var routes = new Router();
-	
+	var router = new Router();
+
 	// @public
 	// public routes
-	
+
 	// @private
 	// private routes
-	
+
 	return router.routes();
 }
 
@@ -24,7 +24,7 @@ var app = bragg();
 app.use(environment());
 app.use(function (ctx) {
 	ctx.config = config[ctx.env];<% if (includeDynongo) { %>
-	db.connect(ctx.config.DynamoDB)<% } %>
+	db.connect(ctx.config.DynamoDB);<% } %>
 });
 app.use(routes());
 app.use(errorHandler);
