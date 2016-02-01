@@ -7,5 +7,5 @@ const fn = pify(index.handler);
 test('result', async t => {
 	const result = await fn({hello: 'world'});
 
-    t.same(result, {hello: 'world'});
+	t.same(result, {hello: 'world'});
 });

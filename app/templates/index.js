@@ -1,28 +1,33 @@
 'use strict';
+var bragg = require('bragg');
+var Router = require('bragg-router');
+var environment = require('bragg-env');<% if (includeDynongo) { %>
+var db = require('dynongo');<% } %>
+var errorHandler = require('./lib/error-handler');
+var config = require('./config.json');
 
-/**
- * <%= functionDescription %>
- *
- * @author <%= name %>      <<%= email %>>
- * @since  <%= date %>
- */
+// Create all the routes
+function routes() {
+	var routes = new Router();
+	
+	// @public
+	// public routes
+	
+	// @private
+	// private routes
+	
+	return router.routes();
+}
 
-// module dependencies<% if (invoke) { %>
-var lambda = require('aws-lambda-invoke');<% } %><% if (includePinkiePromise) { %>
-var Promise = require('pinkie-promise');<% } %><% if (includePify) { %>
-var pify = require('pify');<% } %><% if (includeDynongo) { %>
-var db = require('dynongo');<% } %><% if (env) { %>
-var environment = require('aws-lambda-env');
+// Create app and bootstrap middleware
+var app = bragg();
+app.use(environment());
+app.use(function (ctx) {
+	ctx.config = config[ctx.env];<% if (includeDynongo) { %>
+	db.connect(ctx.config.DynamoDB)<% } %>
+});
+app.use(routes());
+app.use(errorHandler);
 
-var env = environment() || 'production';
-var config = require('./config.json')[env];<% } %>
-
-/**
- * The handler function.
- *
- * @param {object}  req			The data regarding the request.
- * @param {object}  context		The AWS Lambda execution context.
- */
-exports.handler = function (req, context) {
-	context.succeed(req);
-};
+// Listen for requests
+exports.handler = app.listen();

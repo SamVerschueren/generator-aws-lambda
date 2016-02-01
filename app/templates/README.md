@@ -2,6 +2,7 @@
 
 > <%= functionDescription %>
 
+
 ## Usage
 
 Run the following command to create a zip file.
@@ -19,6 +20,7 @@ in `package.json`. This property determines which files will be included in the 
 
 If the `files` property is not provided, a fallback pattern will be used that tries to create
 the zip best effort.
+
 
 ## Author
 

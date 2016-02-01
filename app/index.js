@@ -12,11 +12,12 @@ var path = require('path');
 var yeoman = require('yeoman-generator');
 var moment = require('moment');
 var uppercamelcase = require('uppercamelcase');
+var _s = require('underscore.string');
 
 var features = {
-	'dynongo': '^0.2.4',
+	'dynongo': '^0.6.0',
 	'pify': '^2.3.0',
-	'pinkie-promise': '^1.0.0'
+  'pinkie-promise': '^2.0.0'
 };
 
 module.exports = yeoman.generators.Base.extend({
@@ -38,19 +39,20 @@ module.exports = yeoman.generators.Base.extend({
 		this.prompt([
 			{
 				name: 'functionName',
-				message: 'What do you want to name your lambda function?',
-				default: uppercamelcase(process.cwd().split(path.sep).pop())
+				message: 'What\'s the name of your service?',
+        default: this.appname.replace(/\s/g, '-'),
+        filter: x => _s.slugify(x)
 			},
 			{
 				name: 'functionDescription',
-				message: 'What\'s the description of the lambda function?',
+				message: 'What\'s the description of the service?',
 				validate: function (val) {
 					return val.length > 0 ? true : 'You have to provide a description';
 				}
 			},
 			{
 				name: 'keywords',
-				message: 'Provide a list of keywords?',
+				message: 'Provide a list of keywords (comma- or space-separated)?',
 				filter: function (keywords) {
 					return keywords.replace(/,? /g, ',').split(',');
 				}
@@ -87,13 +89,7 @@ module.exports = yeoman.generators.Base.extend({
 			},
 			{
 				name: 'invoke',
-				message: 'Do you want to invoke other lambda functions?',
-				type: 'confirm',
-				default: true
-			},
-			{
-				name: 'env',
-				message: 'Do you want to extract the environment from the function name?',
+				message: 'Do you want to invoke other services?',
 				type: 'confirm',
 				default: true
 			},
@@ -102,10 +98,7 @@ module.exports = yeoman.generators.Base.extend({
 			// Build the list of dependencies
 			var dependencies = {};
 			if (props.invoke) {
-				dependencies['aws-lambda-invoke'] = '^2.0.0';
-			}
-			if (props.env) {
-				dependencies['aws-lambda-env'] = '^1.1.0';
+				dependencies['bragg-route-invoke'] = '^0.1.0';
 			}
 
 			// Build up the template
@@ -116,7 +109,6 @@ module.exports = yeoman.generators.Base.extend({
 				name: props.name || this.user.git.name(),
 				email: props.email || this.user.git.email(),
 				invoke: props.invoke,
-				env: props.env,
 				dependencies: dependencies,
 				date: moment().format('DD MMM. YYYY')
 			};
@@ -148,10 +140,6 @@ module.exports = yeoman.generators.Base.extend({
 			mv('gitignore', '.gitignore');
 			mv('gitattributes', '.gitattributes');
 			mv('editorconfig', '.editorconfig');
-
-			if (tpl.env !== true) {
-				del('config.json');
-			}
 
 			// We are done!
 			done();

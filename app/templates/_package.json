@@ -1,8 +1,7 @@
 {
   "name": "<%= functionName %>",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "<%= functionDescription %>",
-  "license": "MIT",
   "author": {
     "name": "<%= name %>",
     "email": "<%= email %>"
@@ -16,21 +15,28 @@
     "<%= keyword %>"<%= i < keywords.length-1 ? ',' : '' %>
 <% }); -%>
   ],
+  "files": [
+    "index.js",
+    "config.json",
+		"lib"
+  ],
   "dependencies": {
-<% Object.keys(dependencies).forEach(function(dep, i) { -%>
+    "bragg": "^0.2.0",
+    "bragg-router": "^0.2.0",
+    "bragg-env": "^0.2.0"<% Object.keys(dependencies).forEach(function(dep, i) { %>,
     "<%= dep %>": "<%= dependencies[dep] %>"<%= i < Object.keys(dependencies).length-1 ? ',' : '' %>
 <% }); -%>
   },
   "devDependencies": {
     "ava": "*",
     "aws-lambda-pify": "^1.0.0",
-    "aws-sdk": "^2.2.8",
+    "aws-sdk": "^2.2.33",
+    "del": "^2.0.2",
     "gulp": "^3.9.0",
     "gulp-install": "^0.6.0",
     "gulp-remove-empty-lines": "0.0.2",
     "gulp-strip-comments": "^1.0.1",
     "gulp-zip": "^3.0.2",
-    "del": "^2.0.2",
     "xo": "*"
   }
 }

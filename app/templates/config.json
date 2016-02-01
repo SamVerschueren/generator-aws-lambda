@@ -1,8 +1,12 @@
 {
-  "staging": {
-
-  },
-  "production": {
-    
-  }
+	"staging": {<% if (includeDynongo) { %>
+		"DynamoDB": {
+			"prefix": "staging" 
+    }<% } %>
+	},
+	"production":	{<% if (includeDynongo) { %>
+		"DynamoDB": {
+			"prefix": "production" 
+    }<% } %>	
+	}
 }
