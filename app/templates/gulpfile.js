@@ -17,14 +17,54 @@ var zip = require('gulp-zip');
 var strip = require('gulp-strip-comments');
 var removeEmptyLines = require('gulp-remove-empty-lines');
 var del = require('del');
+var deptree = require('dependency-tree');
 var pkg = require('./package.json');
+
+var regex = new RegExp('node_modules\/(.*?)\/');
+
+function clean(tree, module) {
+	var result = {};
+
+	Object.keys(tree).forEach(function (key) {
+		if (key.indexOf('node_modules/' + module) === -1) {
+			result[key] = clean(tree[key], module);
+		}
+	});
+
+	return result;
+}
+
+function deps(tree, result) {
+	result = result || {};
+
+	Object.keys(tree).forEach(function (key) {
+		var match = regex.exec(key);
+
+		if (match) {
+			result[match[1]] = (result[match[1]] || 0) + 1;
+		}
+
+		deps(tree[key], result);
+	});
+
+	return result;
+}
+
+var tree = deptree({filename: pkg.main, root: __dirname});
+var cleaned = deps(clean(tree, 'aws-sdk'));
+var cleanUpArray = Object.keys(deps(tree)).filter(function (key) {
+	return cleaned[key] === undefined;
+});
 
 gulp.task('clean', ['zip'], function () {
 	return del('.temp');
 });
 
-gulp.task('rmaws', ['copyAndInstall'], function () {
-	return del('.temp/node_modules/aws-sdk');
+gulp.task('cleanDeps', ['copyAndInstall'], function () {
+	// Remove all the dependencies that are not used by our code.
+	return del(cleanUpArray.map(function (module) {
+		return '.temp/node_modules/{' + module + ',' + module + '/**}';
+	}));
 });
 
 gulp.task('copyAndInstall', function () {
@@ -59,5 +99,5 @@ gulp.task('zip', ['copyAndInstall', 'rmaws'], function () {
 		.pipe(gulp.dest('dist'));
 });
 
-gulp.task('build', ['copyAndInstall', 'rmaws', 'zip', 'clean']);
+gulp.task('build', ['copyAndInstall', 'cleanDeps', 'zip', 'clean']);
 gulp.task('default', ['build']);
