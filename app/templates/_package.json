@@ -21,8 +21,8 @@
 		"lib"
   ],
   "dependencies": {
-    "bragg": "^0.2.0",
-    "bragg-router": "^0.2.0",
+    "bragg": "^0.2.1",
+    "bragg-router": "^0.4.0",
     "bragg-env": "^0.2.0"<% Object.keys(dependencies).forEach(function(dep, i) { %>,
     "<%= dep %>": "<%= dependencies[dep] %>"
 <% }); -%>
