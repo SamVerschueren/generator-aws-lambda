@@ -20,7 +20,7 @@ var features = {
   'pinkie-promise': '^2.0.0'
 };
 
-module.exports = yeoman.generators.Base.extend({
+module.exports = yeoman.Base.extend({
 	init: function () {
 		var done = this.async();
 
