@@ -24,7 +24,7 @@
     "bragg": "^0.2.0",
     "bragg-router": "^0.2.0",
     "bragg-env": "^0.2.0"<% Object.keys(dependencies).forEach(function(dep, i) { %>,
-    "<%= dep %>": "<%= dependencies[dep] %>"<%= i < Object.keys(dependencies).length-1 ? ',' : '' %>
+    "<%= dep %>": "<%= dependencies[dep] %>"
 <% }); -%>
   },
   "devDependencies": {
