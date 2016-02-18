@@ -1,6 +1,6 @@
 {
   "name": "generator-aws-lambda",
-  "version": "3.1.1",
+  "version": "3.1.2",
   "description": "Scaffold out an AWS Lambda microservice with bragg",
   "repository": {
     "type": "git",
