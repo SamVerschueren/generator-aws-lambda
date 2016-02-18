@@ -93,7 +93,7 @@ gulp.task('copyAndInstall', function () {
 		.pipe(install({production: true}));
 });
 
-gulp.task('zip', ['copyAndInstall', 'rmaws'], function () {
+gulp.task('zip', ['copyAndInstall', 'cleanDeps'], function () {
 	return gulp.src('.temp/**')
 		.pipe(zip('build.zip'))
 		.pipe(gulp.dest('dist'));
