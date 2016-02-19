@@ -1,12 +1,12 @@
 {
 	"staging": {<% if (includeDynongo) { %>
 		"DynamoDB": {
-			"prefix": "staging" 
+			"prefix": "staging"
 		}<% } %>
 	},
-	"production":	{<% if (includeDynongo) { %>
+	"production": {<% if (includeDynongo) { %>
 		"DynamoDB": {
-			"prefix": "production" 
-		}<% } %>	
+			"prefix": "production"
+		}<% } %>
 	}
 }
