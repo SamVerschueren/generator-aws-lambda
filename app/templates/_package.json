@@ -22,16 +22,16 @@
     "lib"
   ],
   "dependencies": {
-    "bragg": "^0.2.1",
-    "bragg-router": "^0.4.0",
-    "bragg-env": "^0.2.0"<%= Object.keys(dependencies).length > 0 ? ',' : '' %>
+    "bragg": "^1.0.0",
+    "bragg-router": "^1.0.1",
+    "bragg-env": "^1.0.1"<%= Object.keys(dependencies).length > 0 ? ',' : '' %>
 <% Object.keys(dependencies).forEach(function(dep, i) { -%>
     "<%= dep %>": "<%= dependencies[dep] %>"<%= i < Object.keys(dependencies).length-1 ? ',' : '' %>
 <% }); -%>
   },
   "devDependencies": {
     "ava": "*",
-    "aws-lambda-pify": "^1.0.0",
+    "aws-lambda-pify": "^2.0.0",
     "aws-sdk": "^2.2.33",
     "del": "^2.0.2",
     "dependency-tree": "^4.0.0",

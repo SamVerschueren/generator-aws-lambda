@@ -1,14 +1,14 @@
 'use strict';
-var bragg = require('bragg');
-var Router = require('bragg-router');
-var environment = require('bragg-env');<% if (includeDynongo) { %>
-var db = require('dynongo');<% } %>
-var errorHandler = require('./lib/error-handler');
-var config = require('./config.json');
+const bragg = require('bragg');
+const braggRouter = require('bragg-router');
+const environment = require('bragg-env');<% if (includeDynongo) { %>
+const db = require('dynongo');<% } %>
+const errorHandler = require('./lib/error-handler');
+const config = require('./config.json');
 
 // Create all the routes
 function routes() {
-	var router = new Router();
+	const router = braggRouter();
 
 	// @public
 	// public routes
@@ -20,9 +20,9 @@ function routes() {
 }
 
 // Create app and bootstrap middleware
-var app = bragg();
+const app = bragg();
 app.use(environment());
-app.use(function (ctx) {
+app.use(ctx => {
 	ctx.config = config[ctx.env];<% if (includeDynongo) { %>
 	db.connect(ctx.config.DynamoDB);<% } %>
 });

@@ -1,32 +1,22 @@
 'use strict';
+const fs = require('fs');
+const path = require('path');
+const gulp = require('gulp');
+const install = require('gulp-install');
+const zip = require('gulp-zip');
+const strip = require('gulp-strip-comments');
+const removeEmptyLines = require('gulp-remove-empty-lines');
+const del = require('del');
+const deptree = require('dependency-tree');
+const pkg = require('./package.json');
 
-/**
- * Tasks that will zip all the files so that the zip file can be deployed to
- * AWS Lambda.
- *
- * @author <%= name %>		<<%= email %>>
- * @since  <%= date %>
- */
-
-// module dependencies
-var fs = require('fs');
-var path = require('path');
-var gulp = require('gulp');
-var install = require('gulp-install');
-var zip = require('gulp-zip');
-var strip = require('gulp-strip-comments');
-var removeEmptyLines = require('gulp-remove-empty-lines');
-var del = require('del');
-var deptree = require('dependency-tree');
-var pkg = require('./package.json');
-
-var regex = new RegExp('node_modules\/(.*?)\/');
+const regex = new RegExp('node_modules/(.*?)/');
 
 function clean(tree, module) {
-	var result = {};
+	const result = {};
 
-	Object.keys(tree).forEach(function (key) {
-		if (key.indexOf('node_modules/' + module) === -1) {
+	Object.keys(tree).forEach(key => {
+		if (key.indexOf(`node_modules/${module}`) === -1) {
 			result[key] = clean(tree[key], module);
 		}
 	});
@@ -37,8 +27,8 @@ function clean(tree, module) {
 function deps(tree, result) {
 	result = result || {};
 
-	Object.keys(tree).forEach(function (key) {
-		var match = regex.exec(key);
+	Object.keys(tree).forEach(key => {
+		const match = regex.exec(key);
 
 		if (match) {
 			result[match[1]] = (result[match[1]] || 0) + 1;
@@ -50,30 +40,23 @@ function deps(tree, result) {
 	return result;
 }
 
-var tree = deptree({filename: pkg.main, root: __dirname});
-var cleaned = deps(clean(tree, 'aws-sdk'));
-var cleanUpArray = Object.keys(deps(tree)).filter(function (key) {
-	return cleaned[key] === undefined;
+const tree = deptree({filename: pkg.main, root: __dirname});
+const cleaned = deps(clean(tree, 'aws-sdk'));
+const cleanUpArray = Object.keys(deps(tree)).filter(key => cleaned[key] === undefined);
+
+gulp.task('clean', ['zip'], () => del('.temp'));
+
+gulp.task('cleanDeps', ['copyAndInstall'], () => {
+	return del(cleanUpArray.map(x => `.temp/node_modules/{${x},${x}/**}`));
 });
 
-gulp.task('clean', ['zip'], function () {
-	return del('.temp');
-});
-
-gulp.task('cleanDeps', ['copyAndInstall'], function () {
-	// Remove all the dependencies that are not used by our code.
-	return del(cleanUpArray.map(function (module) {
-		return '.temp/node_modules/{' + module + ',' + module + '/**}';
-	}));
-});
-
-gulp.task('copyAndInstall', function () {
-	var files = ['package.json'].concat(pkg.files);
+gulp.task('copyAndInstall', () => {
+	let files = ['package.json'].concat(pkg.files);
 
 	if (pkg.files === undefined) {
 		files = ['./**', '!./**/*.md', '!gulpfile.js', '!./{dist,dist/**}', '!./{test,test/**}', '!./{node_modules,node_modules/**}'];
 	} else {
-		files = files.map(function (file) {
+		files = files.map(file => {
 			try {
 				if (fs.statSync(path.join(__dirname, file)).isDirectory()) {
 					return path.join(file, '**/*');
@@ -93,7 +76,7 @@ gulp.task('copyAndInstall', function () {
 		.pipe(install({production: true}));
 });
 
-gulp.task('zip', ['copyAndInstall', 'cleanDeps'], function () {
+gulp.task('zip', ['copyAndInstall', 'cleanDeps'], () => {
 	return gulp.src('.temp/**')
 		.pipe(zip('build.zip'))
 		.pipe(gulp.dest('dist'));

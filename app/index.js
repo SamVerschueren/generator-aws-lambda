@@ -15,9 +15,8 @@ var uppercamelcase = require('uppercamelcase');
 var _s = require('underscore.string');
 
 var features = {
-	'dynongo': '^0.6.0',
-	'pify': '^2.3.0',
-  'pinkie-promise': '^2.0.0'
+	'dynongo': '^0.7.0',
+	'pify': '^2.3.0'
 };
 
 module.exports = yeoman.Base.extend({
@@ -40,8 +39,8 @@ module.exports = yeoman.Base.extend({
 			{
 				name: 'functionName',
 				message: 'What\'s the name of your service?',
-        default: this.appname.replace(/\s/g, '-'),
-        filter: x => _s.slugify(x)
+				default: this.appname.replace(/\s/g, '-'),
+				filter: x => _s.slugify(x)
 			},
 			{
 				name: 'functionDescription',
@@ -98,7 +97,7 @@ module.exports = yeoman.Base.extend({
 			// Build the list of dependencies
 			var dependencies = {};
 			if (props.invoke) {
-				dependencies['bragg-route-invoke'] = '^0.1.0';
+				dependencies['bragg-route-invoke'] = '^1.0.2';
 			}
 
 			// Build up the template
