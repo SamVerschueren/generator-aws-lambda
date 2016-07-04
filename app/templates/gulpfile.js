@@ -10,7 +10,7 @@ const del = require('del');
 const deptree = require('dependency-tree');
 const pkg = require('./package.json');
 
-const regex = new RegExp('node_modules/(.*?)/');
+const regex = new RegExp('node_modules/(.*?)/', 'g');
 
 function clean(tree, module) {
 	const result = {};
@@ -28,10 +28,12 @@ function deps(tree, result) {
 	result = result || {};
 
 	Object.keys(tree).forEach(key => {
-		const match = regex.exec(key);
+		let match = regex.exec(key);
 
-		if (match) {
+		while (match) {
 			result[match[1]] = (result[match[1]] || 0) + 1;
+
+			match = regex.exec(key);
 		}
 
 		deps(tree[key], result);
