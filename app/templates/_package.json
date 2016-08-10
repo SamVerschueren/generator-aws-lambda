@@ -9,7 +9,7 @@
   "main": "index.js",
   "scripts": {
     "test": "xo && ava",
-    "zip": "gulp build"
+    "build": "gulp build"
   },
   "keywords": [
 <% keywords.forEach(function(keyword, i) { -%>
