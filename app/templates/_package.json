@@ -6,20 +6,21 @@
     "name": "<%= name %>",
     "email": "<%= email %>"
   },
+  "private": true,
   "main": "index.js",
   "scripts": {
     "test": "xo && ava",
     "build": "gulp build"
   },
-  "keywords": [
-<% keywords.forEach(function(keyword, i) { -%>
-    "<%= keyword %>"<%= i < keywords.length-1 ? ',' : '' %>
-<% }); -%>
-  ],
   "files": [
     "index.js",
     "config.json",
     "lib"
+  ],
+  "keywords": [
+<% keywords.forEach(function(keyword, i) { -%>
+    "<%= keyword %>"<%= i < keywords.length-1 ? ',' : '' %>
+<% }); -%>
   ],
   "dependencies": {
     "bragg": "^1.0.0",
