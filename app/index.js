@@ -15,7 +15,7 @@ var uppercamelcase = require('uppercamelcase');
 var _s = require('underscore.string');
 
 var features = {
-	'dynongo': '^0.7.0',
+	'dynongo': '^0.8.0',
 	'pify': '^2.3.0'
 };
 
