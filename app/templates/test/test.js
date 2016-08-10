@@ -1,11 +1,8 @@
 import test from 'ava';
-import pify from 'aws-lambda-pify';
-import index from '../';
+import bootstrap from './fixtures/bootstrap';
 
-const fn = pify(index.handler);
+bootstrap(test, 'get', 'hello');
 
 test('result', async t => {
-	const result = await fn({hello: 'world'});
-
-	t.same(result, {hello: 'world'});
+	t.is(await t.context.fn(), 'world');
 });

@@ -14,7 +14,9 @@ function routes() {
 	// public routes
 
 	// @private
-	// private routes
+	router.get('hello', ctx => {
+		ctx.body = 'world';
+	});
 
 	return router.routes();
 }
