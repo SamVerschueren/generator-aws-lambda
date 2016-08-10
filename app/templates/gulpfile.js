@@ -5,7 +5,8 @@ const gulp = require('gulp');
 const install = require('gulp-install');
 const zip = require('gulp-zip');
 const strip = require('gulp-strip-comments');
-const removeEmptyLines = require('gulp-remove-empty-lines');
+const removeEmptyLines = require('gulp-remove-empty-lines');<% if (generateDocs) { %>
+const apidoc = require('gulp-api-doc');<% } %>
 const del = require('del');
 const deptree = require('dependency-tree');
 const pkg = require('./package.json');
@@ -83,6 +84,12 @@ gulp.task('zip', ['copyAndInstall', 'cleanDeps'], () => {
 		.pipe(zip('build.zip'))
 		.pipe(gulp.dest('dist'));
 });
-
-gulp.task('build', ['copyAndInstall', 'cleanDeps', 'zip', 'clean']);
+<% if (generateDocs) { %>
+gulp.task('docs', () => {
+	return gulp.src('lib')
+        .pipe(apidoc())
+        .pipe(gulp.dest(`docs/${pkg.name}`));
+});
+<% } %>
+gulp.task('build', ['copyAndInstall', 'cleanDeps', 'zip', 'clean'<% if (generateDocs) { %>, 'docs'<% } %>]);
 gulp.task('default', ['build']);

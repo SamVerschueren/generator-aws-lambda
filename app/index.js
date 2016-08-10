@@ -92,6 +92,12 @@ module.exports = yeoman.Base.extend({
 				type: 'confirm',
 				default: true
 			},
+			{
+				name: 'docs',
+				message: 'Do you want to generate API docs?',
+				type: 'confirm',
+				default: true
+			},
 			featurePrompt
 		], function (props) {
 			// Build the list of dependencies
@@ -108,6 +114,7 @@ module.exports = yeoman.Base.extend({
 				name: props.name || this.user.git.name(),
 				email: props.email || this.user.git.email(),
 				invoke: props.invoke,
+				generateDocs: props.docs,
 				dependencies: dependencies,
 				date: moment().format('DD MMM. YYYY')
 			};

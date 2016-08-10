@@ -35,7 +35,8 @@
     "aws-sdk": "^2.2.33",
     "del": "^2.0.2",
     "dependency-tree": "^4.0.0",
-    "gulp": "^3.9.0",
+    "gulp": "^3.9.0",<% if (generateDocs) { %>
+    "gulp-api-doc": "^1.1.0",<% } %>
     "gulp-install": "^0.6.0",
     "gulp-remove-empty-lines": "0.0.2",
     "gulp-strip-comments": "^1.0.1",

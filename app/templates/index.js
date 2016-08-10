@@ -6,6 +6,9 @@ const db = require('dynongo');<% } %>
 const errorHandler = require('./lib/error-handler');
 const config = require('./config.json');
 
+// Controllers
+const hello = require('./lib/controllers/hello');
+
 // Create all the routes
 function routes() {
 	const router = braggRouter();
@@ -14,9 +17,7 @@ function routes() {
 	// public routes
 
 	// @private
-	router.get('hello', ctx => {
-		ctx.body = 'world';
-	});
+	router.get('hello', hello);
 
 	return router.routes();
 }
