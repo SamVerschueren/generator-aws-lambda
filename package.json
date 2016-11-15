@@ -2,10 +2,19 @@
   "name": "generator-aws-lambda",
   "version": "4.1.0",
   "description": "Scaffold out an AWS Lambda microservice with bragg",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/SamVerschueren/generator-aws-lambda"
+  "license": "MIT",
+  "repository": "SamVerschueren/generator-aws-lambda",
+  "author": {
+    "name": "Sam Verschueren",
+    "email": "sam.verschueren@gmail.com",
+    "url": "github.com/SamVerschueren"
   },
+  "engines": {
+    "node": ">=0.12"
+  },
+  "files": [
+    "app"
+  ],
   "keywords": [
     "yeoman-generator",
     "template",
@@ -13,11 +22,6 @@
     "aws",
     "lambda",
     "node"
-  ],
-  "author": "Sam Verschueren",
-  "license": "MIT",
-  "files": [
-    "app"
   ],
   "dependencies": {
     "moment": "^2.10.6",
