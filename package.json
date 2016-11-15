@@ -10,7 +10,10 @@
     "url": "github.com/SamVerschueren"
   },
   "engines": {
-    "node": ">=0.12"
+    "node": ">=4"
+  },
+  "scripts": {
+    "test": "xo && ava"
   },
   "files": [
     "app"
@@ -29,5 +32,18 @@
     "uppercamelcase": "^1.0.0",
     "yeoman-generator": "^0.24.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "ava": "*",
+    "pify": "^2.3.0",
+    "tempfile": "^1.1.1",
+    "xo": "*",
+    "yeoman-assert": "^2.2.1",
+    "yeoman-test": "^1.5.1"
+  },
+  "xo": {
+    "esnext": true,
+    "ignores": [
+      "app/templates/**"
+    ]
+  }
 }

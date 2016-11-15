@@ -1,4 +1,4 @@
-# generator-aws-lambda
+# generator-aws-lambda [![Build Status](https://travis-ci.org/SamVerschueren/generator-aws-lambda.svg?branch=master)](https://travis-ci.org/SamVerschueren/generator-aws-lambda)
 
 > Scaffold out an AWS Lambda microservice with [bragg](https://github.com/SamVerschueren/bragg).
 
