@@ -23,7 +23,7 @@
     "moment": "^2.10.6",
     "underscore.string": "^3.2.3",
     "uppercamelcase": "^1.0.0",
-    "yeoman-generator": "^0.22.5"
+    "yeoman-generator": "^0.24.1"
   },
   "devDependencies": {}
 }
