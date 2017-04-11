@@ -1,11 +1,12 @@
 'use strict';
+const path = require('path');
 const yeoman = require('yeoman-generator');
 const moment = require('moment');
 const uppercamelcase = require('uppercamelcase');
 const _s = require('underscore.string');
 
 const features = {
-	dynongo: '^0.8.0',
+	dynongo: '^0.12.0',
 	pify: '^2.3.0'
 };
 
@@ -60,6 +61,12 @@ module.exports = class extends yeoman.Base {
 				validate: val => val.length > 0 ? true : 'You have to provide your email address'
 			},
 			{
+				name: 'typescript',
+				message: 'Do you want to use TypeScript?',
+				type: 'confirm',
+				default: false
+			},
+			{
 				name: 'invoke',
 				message: 'Do you want to invoke other services?',
 				type: 'confirm',
@@ -92,6 +99,8 @@ module.exports = class extends yeoman.Base {
 				date: moment().format('DD MMM. YYYY')
 			};
 
+			const templatePath = path.join(this.templatePath(), props.typescript ? 'ts' : 'js', '**');
+
 			for (const feature of featuresList) {
 				const hasFeature = props.features.indexOf(feature) !== -1;
 
@@ -107,7 +116,7 @@ module.exports = class extends yeoman.Base {
 			};
 
 			// Copy the template files
-			this.fs.copyTpl(this.templatePath() + '/**', this.destinationPath(), tpl);
+			this.fs.copyTpl(templatePath, this.destinationPath(), tpl);
 
 			// Rename the files
 			mv('_package.json', 'package.json');
