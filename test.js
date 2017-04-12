@@ -36,7 +36,6 @@ test.serial('generates expected files', async t => {
 		'.gitignore',
 		'.travis.yml',
 		'index.js',
-		'gulpfile.js',
 		'package.json',
 		'readme.md',
 		'config.json',
