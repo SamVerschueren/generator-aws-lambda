@@ -1,4 +1,11 @@
 {
+	"test": {<% if (includeDynongo) { %>
+		"DynamoDB": {
+			"prefix": "test",
+			"host": "dynamodb",
+			"local": true
+		}<% } %>
+	},
 	"staging": {<% if (includeDynongo) { %>
 		"DynamoDB": {
 			"prefix": "staging"

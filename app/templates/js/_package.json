@@ -9,8 +9,13 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "xo && ava",
-    "build": "gulp build"
+    "test": "xo && nyc ava",
+    "build": "npm run clean && npm run build.assets && npm run build.prepare && npm run build.zip<% if (generateDocs) { %> && npm run build.docs<% } %>",
+    "build.assets": "cpy \"*.json\" \"*.js\" \"./lib/**/*.js\" \"./dist\" --parents",
+    "build.prepare": "cpy package.json dist && cd dist && npm i --prod && cd ..",
+    "build.zip": "cd dist && zip -r ../build.zip . && cd ..",<% if (generateDocs) { %>
+    "build.docs": "apidoc -i lib -o docs",<% } %>
+    "clean": "del .nyc_output coverage dist build.zip"
   },
   "files": [
     "index.js",
@@ -30,18 +35,14 @@
     "<%= dep %>": "<%= dependencies[dep] %>"<%= i < Object.keys(dependencies).length-1 ? ',' : '' %>
 <% }); -%>
   },
-  "devDependencies": {
+  "devDependencies": {<% if (generateDocs) { %>
+    "apidoc": "^0.17.5",<% } %>
     "ava": "*",
     "aws-lambda-pify": "^3.0.0",
     "aws-sdk": "^2.2.33",
-    "del": "^2.0.2",
-    "dependency-tree": "^4.0.0",
-    "gulp": "^3.9.0",<% if (generateDocs) { %>
-    "gulp-api-doc": "^1.1.0",<% } %>
-    "gulp-install": "^0.6.0",
-    "gulp-remove-empty-lines": "0.0.2",
-    "gulp-strip-comments": "^1.0.1",
-    "gulp-zip": "^3.0.2",
+    "cpy-cli": "^1.0.1",
+    "del-cli": "^0.2.1",
+    "nyc": "^10.2.0",
     "xo": "*"
   },
   "xo": {

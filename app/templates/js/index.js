@@ -14,7 +14,7 @@ function routes() {
 	const router = braggRouter();
 
 	// @public
-	// public routes
+	// Public routes
 
 	// @private
 	router.get('hello', hello);
