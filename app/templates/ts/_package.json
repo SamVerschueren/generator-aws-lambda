@@ -28,10 +28,11 @@
   "dependencies": {
     "bragg": "^1.0.0",
     "bragg-router": "^1.0.1",
-    "bragg-env": "^1.0.1"<%= Object.keys(dependencies).length > 0 ? ',' : '' %>
+    "bragg-env": "^1.0.1",
 <% Object.keys(dependencies).forEach(function(dep, i) { -%>
-    "<%= dep %>": "<%= dependencies[dep] %>"<%= i < Object.keys(dependencies).length-1 ? ',' : '' %>
+    "<%= dep %>": "<%= dependencies[dep] %>",
 <% }); -%>
+    "load-json-file": "^2.0.0"
   },
   "devDependencies": {
     "@types/node": "^7.0.8",<% if (dependencies.pify) { %>
