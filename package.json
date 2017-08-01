@@ -1,6 +1,6 @@
 {
   "name": "generator-aws-lambda",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "description": "Scaffold out an AWS Lambda microservice with bragg",
   "license": "MIT",
   "repository": "SamVerschueren/generator-aws-lambda",
