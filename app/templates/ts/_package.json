@@ -15,10 +15,10 @@
     "lint": "tslint \"src/**/*.ts\"",
     "build": "npm run clean && npm run compile && npm run build.assets && npm run build.prepare && npm run build.zip<% if (generateDocs) { %> && npm run build.docs<% } %>",
     "build.assets": "cpy \"**/*.json\" \"../dist\" --cwd=src --parents",
-    "build.prepare": "del dist/test && cpy package.json dist && cd dist && npm i --prod && cd ..",
+    "build.prepare": "del-cli dist/test && cpy package.json dist && cd dist && npm i --prod && cd ..",
     "build.zip": "cd dist && zip -r ../build.zip . && cd ..",<% if (generateDocs) { %>
     "build.docs": "apidoc -i src -o docs",<% } %>
-    "clean": "del .nyc_output coverage dist build.zip"
+    "clean": "del-cli .nyc_output coverage dist build.zip"
   },
   "keywords": [
 <% keywords.forEach(function(keyword, i) { -%>

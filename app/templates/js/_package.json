@@ -15,7 +15,7 @@
     "build.prepare": "cpy package.json dist && cd dist && npm i --prod && cd ..",
     "build.zip": "cd dist && zip -r ../build.zip . && cd ..",<% if (generateDocs) { %>
     "build.docs": "apidoc -i lib -o docs",<% } %>
-    "clean": "del .nyc_output coverage dist build.zip"
+    "clean": "del-cli .nyc_output coverage dist build.zip"
   },
   "files": [
     "index.js",
