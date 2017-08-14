@@ -1,5 +1,5 @@
-import * as pify from 'aws-lambda-pify';
-import * as invoke from 'bragg-route-invoke';
+import * as pify from 'aws-lambda-pify';<% if (dependencies['bragg-route-invoke']) { %>
+import * as invoke from 'bragg-route-invoke';<% } %>
 import './env';
 
 const cwd = process.cwd();
