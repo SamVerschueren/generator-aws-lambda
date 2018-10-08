@@ -13,7 +13,6 @@ const features = {
 const featuresList = Object.keys(features);
 
 module.exports = class extends yeoman.Base {
-
 	init() {
 		const featurePrompt = {
 			name: 'features',

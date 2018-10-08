@@ -15,7 +15,7 @@ test.beforeEach(async t => {
 });
 
 test.serial('generates expected files', async t => {
-	const generator = t.context.generator;
+	const {generator} = t.context;
 
 	helpers.mockPrompt(generator, {
 		functionName: 'test',
@@ -50,7 +50,7 @@ test.serial('generates expected files', async t => {
 });
 
 test.serial('generates typescript project', async t => {
-	const generator = t.context.generator;
+	const {generator} = t.context;
 
 	helpers.mockPrompt(generator, {
 		functionName: 'test',
@@ -85,7 +85,7 @@ test.serial('generates typescript project', async t => {
 });
 
 test.serial('generates expected package.json', async t => {
-	const generator = t.context.generator;
+	const {generator} = t.context;
 
 	helpers.mockPrompt(generator, {
 		functionName: 'foo',
