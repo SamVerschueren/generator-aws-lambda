@@ -1,5 +1,5 @@
 import test from 'ava';
-import { bootstrap } from './fixtures/bootstrap';
+import {bootstrap} from './fixtures/bootstrap';
 
 bootstrap(test, 'get', 'hello');
 

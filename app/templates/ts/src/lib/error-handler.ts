@@ -1,7 +1,7 @@
 /**
  * Error handler
  *
- * @param {Object}	ctx			The bragg context object.
+ * @param	ctx			The bragg context object.
  */
 export const errorHandler = ctx => {
 	if (ctx.body === undefined && (ctx.status === undefined || ctx.status >= 400)) {

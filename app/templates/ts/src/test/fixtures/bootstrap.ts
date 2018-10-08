@@ -1,6 +1,8 @@
 import * as pify from 'aws-lambda-pify';<% if (dependencies['bragg-route-invoke']) { %>
 import * as invoke from 'bragg-route-invoke';<% } %>
-import './env';
+import {loadEnv} from './env';
+
+loadEnv();
 
 const cwd = process.cwd();
 
@@ -26,8 +28,8 @@ export function bootstrap(test: any, method: string, path: string) {
 
 	test.beforeEach(t => {
 		t.context.fn = args => {
-			const index = require('../..');
-			return pify(index.handler)(Object.assign({}, options, args));
+			const index = require('../..'); // tslint:disable-line:no-require-imports
+			return pify(index.handler)({...options, ...args});
 		};
 	});
 }

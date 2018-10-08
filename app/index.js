@@ -6,8 +6,8 @@ const uppercamelcase = require('uppercamelcase');
 const _s = require('underscore.string');
 
 const features = {
-	dynongo: '^0.12.0',
-	pify: '^2.3.0'
+	dynongo: '^0.14.1',
+	pify: '^4.0.0'
 };
 
 const featuresList = Object.keys(features);

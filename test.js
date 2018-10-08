@@ -107,8 +107,8 @@ test.serial('generates expected package.json', async t => {
 	t.deepEqual(pkg.dependencies, {
 		bragg: '^1.0.0',
 		'bragg-router': '^1.0.1',
-		'bragg-env': '^1.0.1',
+		'bragg-env': '^2.0.0',
 		'bragg-route-invoke': '^1.0.2',
-		dynongo: '^0.12.0'
+		dynongo: '^0.14.1'
 	});
 });

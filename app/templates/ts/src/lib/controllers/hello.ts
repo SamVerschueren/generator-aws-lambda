@@ -1,3 +1,5 @@
+import {Context} from '../entities';
+
 <% if (generateDocs) { %>/**
  * @api {get} hello Test message
  * @apiName Hello
@@ -7,6 +9,6 @@
  *     HTTP/1.1 200 OK
  *     world
  */<% } %>
-export function exec(ctx: any) {
+export const exec = (ctx: Context) => {
 	ctx.body = 'world';
-}
+};
