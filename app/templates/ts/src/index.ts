@@ -1,16 +1,16 @@
-import * as path from 'path';
 import * as bragg from 'bragg';
 import * as braggRouter from 'bragg-router';
 import * as environment from 'bragg-env';
-import * as loadJsonFile from 'load-json-file';<% if (includeDynongo) { %>
-import * as db from 'dynongo';<% } %>
-import { errorHandler } from './lib/error-handler';
+import * as loadConfig from 'bragg-load-config';
+
+import {errorHandler} from './lib/error-handler';<% if (includeDynongo) { %>
+import {connect} from './lib/middlewares/db-connect';<% } %>
 
 // Controllers
 import * as hello from './lib/controllers/hello';
 
 // Create all the routes
-function routes() {
+const routes = () => {
 	const router = braggRouter();
 
 	// @public
@@ -20,16 +20,13 @@ function routes() {
 	router.get('hello', hello.exec);
 
 	return router.routes();
-}
+};
 
 // Create app and bootstrap middleware
 const app = bragg();
 app.use(environment());
-app.use(ctx => {
-	const config = loadJsonFile.sync(path.join(__dirname, 'config.json'));
-	ctx.config = config[ctx.env];<% if (includeDynongo) { %>
-	db.connect(ctx.config.DynamoDB);<% } %>
-});
+app.use(loadConfig('config.json', {cwd: __dirname}));<% if (includeDynongo) { %>
+app.use(connect());<% } %>
 app.use(routes());
 app.use(errorHandler);
 

@@ -12,7 +12,7 @@
     "test": "npm run lint && nyc ava dist/test",
     "pretest": "npm run clean && npm run compile -- --sourceMap && npm run build.assets",
     "compile": "tsc -p tsconfig.json",
-    "lint": "tslint \"src/**/*.ts\"",
+    "lint": "tslint -p . --format stylish",
     "build": "npm run clean && npm run compile && npm run build.assets && npm run build.prepare && npm run build.zip<% if (generateDocs) { %> && npm run build.docs<% } %>",
     "build.assets": "cpy \"**/*.json\" \"../dist\" --cwd=src --parents",
     "build.prepare": "del-cli dist/test && cpy package.json dist && cd dist && npm i --prod && cd ..",
@@ -28,24 +28,26 @@
   "dependencies": {
     "bragg": "^1.0.0",
     "bragg-router": "^1.0.1",
-    "bragg-env": "^1.0.1",
+    "bragg-env": "^2.0.0",
+    "bragg-load-config": "^0.4.1",
 <% Object.keys(dependencies).forEach(function(dep, i) { -%>
     "<%= dep %>": "<%= dependencies[dep] %>",
 <% }); -%>
-    "load-json-file": "^2.0.0"
+    "load-json-file": "^5.1.0"
   },
   "devDependencies": {
-    "@types/node": "^7.0.8",<% if (dependencies.pify) { %>
-    "@types/pify": "0.0.28",<% } %><% if (generateDocs) { %>
-    "apidoc": "^0.17.5",<% } %>
-    "ava": "*",
+    "@types/node": "^10.11.4",<% if (dependencies.pify) { %>
+    "@types/pify": "^3.0.2",<% } %><% if (generateDocs) { %>
+    "apidoc": "^0.17.6",<% } %>
+    "ava": "^0.25.0",
     "aws-lambda-pify": "^3.0.0",
-    "aws-sdk": "^2.40.0",
-    "cpy-cli": "^1.0.1",
-    "del-cli": "^0.2.1",
-    "nyc": "^10.1.2",
-    "tslint": "^5.0.0",
-    "typescript": "^2.2.2"
+    "aws-sdk": "^2.329.0",
+    "cpy-cli": "^2.0.0",
+    "del-cli": "^1.1.0",
+    "nyc": "^13.0.1",
+    "tslint": "^5.11.0",
+    "tslint-xo": "0.9.0",
+    "typescript": "^3.1.1"
   },
   "nyc": {
     "exclude": [

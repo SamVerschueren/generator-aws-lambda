@@ -30,20 +30,20 @@
   "dependencies": {
     "bragg": "^1.0.0",
     "bragg-router": "^1.0.1",
-    "bragg-env": "^1.0.1"<%= Object.keys(dependencies).length > 0 ? ',' : '' %>
+    "bragg-env": "^2.0.0"<%= Object.keys(dependencies).length > 0 ? ',' : '' %>
 <% Object.keys(dependencies).forEach(function(dep, i) { -%>
     "<%= dep %>": "<%= dependencies[dep] %>"<%= i < Object.keys(dependencies).length-1 ? ',' : '' %>
 <% }); -%>
   },
   "devDependencies": {<% if (generateDocs) { %>
-    "apidoc": "^0.17.5",<% } %>
-    "ava": "*",
+    "apidoc": "^0.17.6",<% } %>
+    "ava": "^0.25.0",
     "aws-lambda-pify": "^3.0.0",
-    "aws-sdk": "^2.2.33",
-    "cpy-cli": "^1.0.1",
-    "del-cli": "^0.2.1",
-    "nyc": "^10.2.0",
-    "xo": "*"
+    "aws-sdk": "^2.329.0",
+    "cpy-cli": "^2.0.0",
+    "del-cli": "^1.1.0",
+    "nyc": "^13.0.1",
+    "xo": "^0.23.0"
   },
   "xo": {
     "esnext": true
